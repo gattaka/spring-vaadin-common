@@ -247,7 +247,7 @@ public class UIUtils {
 
 	public static List<String> monthNames() {
 		return Arrays.asList("Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září",
-				"�?íjen", "Listopad", "Prosinec");
+				"Říjen", "Listopad", "Prosinec");
 	}
 
 	public static <T> DateTimePicker createDateTimePicker(String labelToLocalize, boolean required, Binder<T> binder,
@@ -380,6 +380,21 @@ public class UIUtils {
 		TextFieldBuilder<T> builder = new TextFieldBuilder<>();
 		builder.setLabelToLocalize(labelToLocalize);
 		builder.setRequired(required);
+		builder.setMaxLength(maxLength);
+		builder.setBinder(binder);
+		builder.setGetter(getter);
+		builder.setSetter(setter);
+		builder.setAdditionalValidator(additionalValidator);
+		return builder.build();
+	}
+
+	public static <T> TextField createTextField(String labelToLocalize, boolean required, Integer minLength,
+			Integer maxLength, Binder<T> binder, ValueProvider<T, String> getter, Setter<T, String> setter,
+			Validator<String> additionalValidator) {
+		TextFieldBuilder<T> builder = new TextFieldBuilder<>();
+		builder.setLabelToLocalize(labelToLocalize);
+		builder.setRequired(required);
+		builder.setMinLength(minLength);
 		builder.setMaxLength(maxLength);
 		builder.setBinder(binder);
 		builder.setGetter(getter);
