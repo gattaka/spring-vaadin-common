@@ -283,26 +283,26 @@ public class UIUtils {
 	 * Double text field
 	 */
 
-	public static <T> TextField createDoubleTextField(String labelToLocalize, boolean required, boolean onlyPositive,
-			Binder<T> binder, ValueProvider<T, Double> getter, Setter<T, Double> setter) {
-		return createDoubleTextField(labelToLocalize, required, onlyPositive, binder, getter, setter, null);
+	public static <T> TextField createDoubleTextField(String labelToLocalize, boolean required,
+			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Double> getter,
+			Setter<T, Double> setter) {
+		return createDoubleTextField(labelToLocalize, required, constraints, binder, getter, setter, null);
 	}
 
-	public static <T> TextField createDoubleTextField(String labelToLocalize, boolean required, boolean onlyPositive,
-			Binder<T> binder, ValueProvider<T, Double> getter, Setter<T, Double> setter,
+	public static <T> TextField createDoubleTextField(String labelToLocalize, boolean required,
+			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Double> getter, Setter<T, Double> setter,
 			Validator<Double> additionalValidator) {
 		TextField textField = new TextField(localize(labelToLocalize));
 		BindingBuilder<T, String> builder = binder.forField(textField);
 		if (required)
 			builder.asRequired(localize(POVINNE_POLE_MSG_KEY));
 		builder.withValidator(FormatUtils::isNumber, localize("neni.cislo.msg"));
-		if (onlyPositive)
-			builder.withValidator(val -> {
-				Double result = FormatUtils.parseDoubleOrNull(val);
-				if (required)
-					return result != null && result > 0;
-				return result == null || result >= 0;
-			}, localize("nesmi.byt.zaporne.cislo.msg"));
+		builder.withValidator(val -> {
+			Double result = FormatUtils.parseDoubleOrNull(val);
+			if (result == null)
+				return !required;
+			return constraints.validate(result);
+		}, localize("nesmi.byt.zaporne.cislo.msg"));
 		if (additionalValidator != null)
 			builder.withValidator((val, ctx) -> additionalValidator.apply(FormatUtils.parseDoubleOrNull(val), ctx));
 		builder.bind(to -> FormatUtils.formatDouble(getter.apply(to)),
@@ -316,26 +316,26 @@ public class UIUtils {
 	 * Integer text field
 	 */
 
-	public static <T> TextField createIntegerTextField(String labelToLocalize, boolean required, boolean onlyPositive,
-			Binder<T> binder, ValueProvider<T, Integer> getter, Setter<T, Integer> setter) {
-		return createIntegerTextField(labelToLocalize, required, onlyPositive, binder, getter, setter, null);
+	public static <T> TextField createIntegerTextField(String labelToLocalize, boolean required,
+			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Integer> getter,
+			Setter<T, Integer> setter) {
+		return createIntegerTextField(labelToLocalize, required, constraints, binder, getter, setter, null);
 	}
 
-	public static <T> TextField createIntegerTextField(String labelToLocalize, boolean required, boolean onlyPositive,
-			Binder<T> binder, ValueProvider<T, Integer> getter, Setter<T, Integer> setter,
-			Validator<Integer> additionalValidator) {
+	public static <T> TextField createIntegerTextField(String labelToLocalize, boolean required,
+			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Integer> getter,
+			Setter<T, Integer> setter, Validator<Integer> additionalValidator) {
 		TextField textField = new TextField(localize(labelToLocalize));
 		BindingBuilder<T, String> builder = binder.forField(textField);
 		if (required)
 			builder.asRequired(localize(POVINNE_POLE_MSG_KEY));
 		builder.withValidator(FormatUtils::isNumber, localize("neni.cele.cislo.msg"));
-		if (onlyPositive)
-			builder.withValidator(val -> {
-				Integer result = FormatUtils.parseIntegerOrNull(val);
-				if (required)
-					return result != null && result > 0;
-				return result == null || result >= 0;
-			}, localize("nesmi.byt.zaporne.cislo.msg"));
+		builder.withValidator(val -> {
+			Integer result = FormatUtils.parseIntegerOrNull(val);
+			if (result == null)
+				return !required;
+			return constraints.validate(result);
+		}, localize("nesmi.byt.zaporne.cislo.msg"));
 		if (additionalValidator != null)
 			builder.withValidator((val, ctx) -> additionalValidator.apply(FormatUtils.parseIntegerOrNull(val), ctx));
 		builder.bind(to -> FormatUtils.formatInteger(getter.apply(to)),
