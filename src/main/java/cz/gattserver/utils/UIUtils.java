@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.Binder.BindingBuilder;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.binder.Setter;
 import com.vaadin.flow.data.binder.Validator;
@@ -436,7 +438,11 @@ public class UIUtils {
 		Map<I, C> comboValuesMap = new HashMap<>();
 		for (C to : data)
 			comboValuesMap.put(to.getId(), to);
-		ComboBox<C> comboBox = new ComboBox<>(localize(labelToLocalize), comboValuesMap.values());
+		ComboBox<C> comboBox = new ComboBox<>(localize(labelToLocalize));
+		ListDataProvider<C> provider = new ListDataProvider<>(comboValuesMap.values());
+		provider.addSortComparator(
+				(a, b) -> Comparator.comparing(C::getNazev, String.CASE_INSENSITIVE_ORDER).compare(a, b));
+		comboBox.setDataProvider(provider);
 		BindingBuilder<T, C> builder = binder.forField(comboBox);
 		if (required)
 			builder.asRequired(localize(POVINNE_POLE_MSG_KEY));

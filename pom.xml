@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cz.gattserver</groupId>
 	<artifactId>spring-vaadin-common</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>Gattserver vaadin spring project common</name>
 	<description>Various utils and templates for vaadin spring projects</description>
 
