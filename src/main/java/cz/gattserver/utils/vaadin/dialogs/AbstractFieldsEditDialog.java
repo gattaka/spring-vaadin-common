@@ -40,7 +40,8 @@ public abstract class AbstractFieldsEditDialog<T> extends EditWebDialog {
 		return createNewInstance();
 	}
 
-	protected void processBeforeSave(T targetTO) {
+	protected boolean processBeforeSave(T targetTO) {
+		return true;
 	}
 
 	protected abstract T createNewInstance();

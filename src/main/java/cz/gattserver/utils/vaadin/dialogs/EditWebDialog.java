@@ -15,7 +15,7 @@ public class EditWebDialog extends WebDialog {
 	}
 
 	@Override
-	protected void init() {
+	public void init() {
 		super.init();
 		UI.getCurrent().getPage().executeJs(
 				"window.onbeforeunload = function() { return \"Opravdu si přejete ukončit editor a odejít?\" };");

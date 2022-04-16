@@ -14,16 +14,16 @@ public class WebDialog extends Dialog {
 
 	protected VerticalLayout layout = new VerticalLayout();
 
+	private boolean initialized = false;
+
 	public WebDialog(String caption) {
-		init();
 		layout.add(new Span(caption));
 	}
 
 	public WebDialog() {
-		init();
 	}
 
-	protected void init() {
+	public void init() {
 		SpringContextHelper.inject(this);
 
 		add(layout);
@@ -32,6 +32,8 @@ public class WebDialog extends Dialog {
 
 		layout.setSpacing(true);
 		layout.setPadding(false);
+
+		initialized = true;
 	}
 
 	public void addComponent(Component component) {
@@ -45,6 +47,13 @@ public class WebDialog extends Dialog {
 
 	public void setComponentAlignment(Component component, Alignment alignment) {
 		layout.setHorizontalComponentAlignment(alignment, component);
+	}
+
+	@Override
+	public void open() {
+		if (!initialized)
+			init();
+		super.open();
 	}
 
 }
