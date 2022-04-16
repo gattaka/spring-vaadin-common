@@ -80,6 +80,13 @@ public class PredicateBuilder {
 		return this;
 	}
 
+	public <T extends Number & Comparable<?>> PredicateBuilder gtOrValueNull(NumberExpression<T> expression1,
+			ComparableExpression<T> expression2) {
+		if (expression2 != null)
+			booleanBuilder.and(ExpressionUtils.or(expression1.gt(expression2), expression2.isNull()));
+		return this;
+	}
+
 	private boolean isNotNullAndNotBlank(Object o) {
 		if (o == null)
 			return false;
@@ -116,11 +123,23 @@ public class PredicateBuilder {
 		return this;
 	}
 
+	public <T extends Number & Comparable<?>> PredicateBuilder gt(NumberExpression<T> expression, T value) {
+		if (isNotNullAndNotBlank(value))
+			booleanBuilder.and(expression.gt(value));
+		return this;
+	}
+
 	/*
 	 * GE
 	 */
 
 	public <T extends Comparable<T>> PredicateBuilder ge(ComparableExpression<T> expression, T value) {
+		if (isNotNullAndNotBlank(value))
+			booleanBuilder.and(expression.goe(value));
+		return this;
+	}
+
+	public <T extends Number & Comparable<?>> PredicateBuilder ge(NumberExpression<T> expression, T value) {
 		if (isNotNullAndNotBlank(value))
 			booleanBuilder.and(expression.goe(value));
 		return this;
@@ -136,6 +155,12 @@ public class PredicateBuilder {
 		return this;
 	}
 
+	public <T extends Number & Comparable<?>> PredicateBuilder lt(NumberExpression<T> expression, T value) {
+		if (isNotNullAndNotBlank(value))
+			booleanBuilder.and(expression.lt(value));
+		return this;
+	}
+
 	/*
 	 * LE
 	 */
@@ -146,6 +171,11 @@ public class PredicateBuilder {
 		return this;
 	}
 
+	public <T extends Number & Comparable<?>> PredicateBuilder le(NumberExpression<T> expression, T value) {
+		if (isNotNullAndNotBlank(value))
+			booleanBuilder.and(expression.loe(value));
+		return this;
+	}
 	/*
 	 * NOT IN
 	 */
