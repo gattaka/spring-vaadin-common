@@ -17,18 +17,18 @@ public class WebDialog extends Dialog {
 	private boolean initialized = false;
 
 	public WebDialog(String caption) {
+		this();
 		layout.add(new Span(caption));
 	}
 
 	public WebDialog() {
+		SpringContextHelper.inject(this);
 	}
 
 	public void init() {
-		SpringContextHelper.inject(this);
-
 		add(layout);
 		setCloseOnOutsideClick(false);
-		setCloseOnEsc(false);
+		setCloseOnEsc(true);
 
 		layout.setSpacing(true);
 		layout.setPadding(false);

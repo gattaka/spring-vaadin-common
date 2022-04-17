@@ -81,7 +81,7 @@ public class PredicateBuilder {
 	}
 
 	public <T extends Number & Comparable<?>> PredicateBuilder gtOrValueNull(NumberExpression<T> expression1,
-			ComparableExpression<T> expression2) {
+			NumberExpression<T> expression2) {
 		if (expression2 != null)
 			booleanBuilder.and(ExpressionUtils.or(expression1.gt(expression2), expression2.isNull()));
 		return this;
