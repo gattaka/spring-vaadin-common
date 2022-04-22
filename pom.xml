@@ -21,7 +21,7 @@
 	</properties>
 
 	<scm>
-		<developerConnection>${scm.base.url}/gattserver-parent</developerConnection>
+		<developerConnection>${scm.base.url}/spring-vaadin-common</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
