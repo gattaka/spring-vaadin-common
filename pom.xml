@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cz.gattserver</groupId>
 	<artifactId>spring-vaadin-common</artifactId>
@@ -19,6 +20,19 @@
 		<querydsl-apt.version>1.1.3</querydsl-apt.version>
 		<javadoc.opts>-Xdoclint:none</javadoc.opts>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>gattserver-nexus-release</id>
+			<name>Gattserver Repository</name>
+			<url>https://nexus.gattserver.cz/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>gattserver-nexus-snapshot</id>
+			<name>Gattserver Repository</name>
+			<url>https://nexus.gattserver.cz/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<scm>
 		<developerConnection>${scm.base.url}/spring-vaadin-common</developerConnection>
