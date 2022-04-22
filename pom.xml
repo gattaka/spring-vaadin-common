@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cz.gattserver</groupId>
 	<artifactId>spring-vaadin-common</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<name>Gattserver vaadin spring project common</name>
 	<description>Various utils and templates for vaadin spring projects</description>
 
@@ -22,7 +22,7 @@
 
 	<scm>
 		<developerConnection>${scm.base.url}/spring-vaadin-common</developerConnection>
-		<tag>spring-vaadin-common-1.0.3</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencyManagement>
