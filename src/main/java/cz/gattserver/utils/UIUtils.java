@@ -111,7 +111,8 @@ public class UIUtils {
 	 * Přidá filtrovací pole do záhlaví gridu
 	 */
 	public static TextField addHeaderTextField(HeaderCell cell,
-			HasValue.ValueChangeListener<? super ComponentValueChangeEvent<TextField, String>> listener) {
+											   HasValue.ValueChangeListener<?
+													   super ComponentValueChangeEvent<TextField, String>> listener) {
 		TextField field = UIUtils.asSmall(new TextField());
 		field.setWidthFull();
 		field.setClearButtonVisible(true);
@@ -125,8 +126,9 @@ public class UIUtils {
 	 * Přidá filtrovací combo do záhlaví gridu
 	 */
 	public static <T extends Enum<T>> ComboBox<T> addHeaderComboBox(HeaderCell cell, Class<T> enumType,
-			ItemLabelGenerator<T> itemLabelGenerator,
-			HasValue.ValueChangeListener<? super ComponentValueChangeEvent<ComboBox<T>, T>> listener) {
+																	ItemLabelGenerator<T> itemLabelGenerator,
+																	HasValue.ValueChangeListener<?
+																			super ComponentValueChangeEvent<ComboBox<T>, T>> listener) {
 		return addHeaderComboBox(cell, enumType.getEnumConstants(), itemLabelGenerator, listener);
 	}
 
@@ -134,8 +136,9 @@ public class UIUtils {
 	 * Přidá filtrovací combo do záhlaví gridu
 	 */
 	public static <T> ComboBox<T> addHeaderComboBox(HeaderCell cell, T[] values,
-			ItemLabelGenerator<T> itemLabelGenerator,
-			HasValue.ValueChangeListener<? super ComponentValueChangeEvent<ComboBox<T>, T>> listener) {
+													ItemLabelGenerator<T> itemLabelGenerator,
+													HasValue.ValueChangeListener<?
+															super ComponentValueChangeEvent<ComboBox<T>, T>> listener) {
 		return addHeaderComboBox(cell, Arrays.asList(values), itemLabelGenerator, listener);
 	}
 
@@ -143,8 +146,9 @@ public class UIUtils {
 	 * Přidá filtrovací combo do záhlaví gridu
 	 */
 	public static <T> ComboBox<T> addHeaderComboBox(HeaderCell cell, Collection<T> values,
-			ItemLabelGenerator<T> itemLabelGenerator,
-			HasValue.ValueChangeListener<? super ComponentValueChangeEvent<ComboBox<T>, T>> listener) {
+													ItemLabelGenerator<T> itemLabelGenerator,
+													HasValue.ValueChangeListener<?
+															super ComponentValueChangeEvent<ComboBox<T>, T>> listener) {
 		ComboBox<T> combo = UIUtils.asSmall(new ComboBox<>(null, values));
 		combo.setWidthFull();
 		combo.setRequired(false);
@@ -221,7 +225,7 @@ public class UIUtils {
 	public static String localize(String stringToLocalize) {
 		return stringToLocalize == null ? null
 				: DefaultI18NResourceProvider.instance().getMessage(VaadinSession.getCurrent().getLocale(),
-						stringToLocalize);
+				stringToLocalize);
 	}
 
 	/**
@@ -236,12 +240,15 @@ public class UIUtils {
 
 	private static DatePickerI18n createDatePickerI18n() {
 		DatePickerI18n datePickerI18n = new DatePickerI18n();
+		datePickerI18n.setDateFormats("d. M. yyyy", new String[]{"dd.MM.yyyy", "dd. MM.yyyy", "dd.MM. yyyy", "dd. MM. " +
+				"yyyy", "d.M.yyyy", "d. M.yyyy", "d.M. yyyy"});
 		datePickerI18n.setWeek("Týden");
 		datePickerI18n.setCalendar("Kalendář");
 		datePickerI18n.setClear("Vymazat");
 		datePickerI18n.setToday("Dnes");
 		datePickerI18n.setCancel("Zrušit");
-		datePickerI18n.setWeekdays(Arrays.asList("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"));
+		datePickerI18n.setWeekdays(Arrays.asList("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"
+		));
 		datePickerI18n.setWeekdaysShort(Arrays.asList("Ne", "Po", "Út", "St", "Čt", "Pa", "So"));
 		datePickerI18n.setMonthNames(monthNames());
 		return datePickerI18n;
@@ -253,7 +260,8 @@ public class UIUtils {
 	}
 
 	public static <T> DateTimePicker createDateTimePicker(String labelToLocalize, boolean required, Binder<T> binder,
-			ValueProvider<T, LocalDateTime> getter, Setter<T, LocalDateTime> setter) {
+														  ValueProvider<T, LocalDateTime> getter, Setter<T,
+			LocalDateTime> setter) {
 		DateTimePicker dateTimePicker = new DateTimePicker(localize(labelToLocalize));
 		dateTimePicker.setLocale(Locale.forLanguageTag("CS"));
 		BindingBuilder<T, LocalDateTime> builder = binder.forField(dateTimePicker);
@@ -267,7 +275,7 @@ public class UIUtils {
 	}
 
 	public static <T> DatePicker createDatePicker(String labelToLocalize, boolean required, Binder<T> binder,
-			ValueProvider<T, LocalDate> getter, Setter<T, LocalDate> setter) {
+												  ValueProvider<T, LocalDate> getter, Setter<T, LocalDate> setter) {
 		DatePicker datePicker = new DatePicker(localize(labelToLocalize));
 		datePicker.setLocale(Locale.forLanguageTag("CS"));
 		BindingBuilder<T, LocalDate> builder = binder.forField(datePicker);
@@ -286,14 +294,16 @@ public class UIUtils {
 	 */
 
 	public static <T> TextField createDoubleTextField(String labelToLocalize, boolean required,
-			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Double> getter,
-			Setter<T, Double> setter) {
+													  NumberConstraints constraints, Binder<T> binder, ValueProvider<T
+			, Double> getter,
+													  Setter<T, Double> setter) {
 		return createDoubleTextField(labelToLocalize, required, constraints, binder, getter, setter, null);
 	}
 
 	public static <T> TextField createDoubleTextField(String labelToLocalize, boolean required,
-			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Double> getter, Setter<T, Double> setter,
-			Validator<Double> additionalValidator) {
+													  NumberConstraints constraints, Binder<T> binder, ValueProvider<T
+			, Double> getter, Setter<T, Double> setter,
+													  Validator<Double> additionalValidator) {
 		TextField textField = new TextField(localize(labelToLocalize));
 		BindingBuilder<T, String> builder = binder.forField(textField);
 		if (required)
@@ -319,14 +329,17 @@ public class UIUtils {
 	 */
 
 	public static <T> TextField createIntegerTextField(String labelToLocalize, boolean required,
-			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Integer> getter,
-			Setter<T, Integer> setter) {
+													   NumberConstraints constraints, Binder<T> binder,
+													   ValueProvider<T, Integer> getter,
+													   Setter<T, Integer> setter) {
 		return createIntegerTextField(labelToLocalize, required, constraints, binder, getter, setter, null);
 	}
 
 	public static <T> TextField createIntegerTextField(String labelToLocalize, boolean required,
-			NumberConstraints constraints, Binder<T> binder, ValueProvider<T, Integer> getter,
-			Setter<T, Integer> setter, Validator<Integer> additionalValidator) {
+													   NumberConstraints constraints, Binder<T> binder,
+													   ValueProvider<T, Integer> getter,
+													   Setter<T, Integer> setter,
+													   Validator<Integer> additionalValidator) {
 		TextField textField = new TextField(localize(labelToLocalize));
 		BindingBuilder<T, String> builder = binder.forField(textField);
 		if (required)
@@ -352,7 +365,8 @@ public class UIUtils {
 	 */
 
 	public static <T> TextField createTextField(String labelToLocalize, boolean required, Integer minLength,
-			Integer maxLength, Binder<T> binder, ValueProvider<T, String> getter, Setter<T, String> setter) {
+												Integer maxLength, Binder<T> binder, ValueProvider<T, String> getter,
+												Setter<T, String> setter) {
 		TextFieldBuilder<T> builder = new TextFieldBuilder<>();
 		builder.setLabelToLocalize(labelToLocalize);
 		builder.setRequired(required);
@@ -365,7 +379,8 @@ public class UIUtils {
 	}
 
 	public static <T> TextField createTextField(String labelToLocalize, boolean required, Integer maxLength,
-			Binder<T> binder, ValueProvider<T, String> getter, Setter<T, String> setter) {
+												Binder<T> binder, ValueProvider<T, String> getter,
+												Setter<T, String> setter) {
 		TextFieldBuilder<T> builder = new TextFieldBuilder<>();
 		builder.setLabelToLocalize(labelToLocalize);
 		builder.setRequired(required);
@@ -377,8 +392,9 @@ public class UIUtils {
 	}
 
 	public static <T> TextField createTextField(String labelToLocalize, boolean required, Integer maxLength,
-			Binder<T> binder, ValueProvider<T, String> getter, Setter<T, String> setter,
-			Validator<String> additionalValidator) {
+												Binder<T> binder, ValueProvider<T, String> getter,
+												Setter<T, String> setter,
+												Validator<String> additionalValidator) {
 		TextFieldBuilder<T> builder = new TextFieldBuilder<>();
 		builder.setLabelToLocalize(labelToLocalize);
 		builder.setRequired(required);
@@ -391,8 +407,9 @@ public class UIUtils {
 	}
 
 	public static <T> TextField createTextField(String labelToLocalize, boolean required, Integer minLength,
-			Integer maxLength, Binder<T> binder, ValueProvider<T, String> getter, Setter<T, String> setter,
-			Validator<String> additionalValidator) {
+												Integer maxLength, Binder<T> binder, ValueProvider<T, String> getter,
+												Setter<T, String> setter,
+												Validator<String> additionalValidator) {
 		TextFieldBuilder<T> builder = new TextFieldBuilder<>();
 		builder.setLabelToLocalize(labelToLocalize);
 		builder.setRequired(required);
@@ -409,7 +426,8 @@ public class UIUtils {
 	 * TextArea
 	 */
 	public static <T> TextArea createTextArea(String labelToLocalize, boolean required, Integer maxLength,
-			Binder<T> binder, ValueProvider<T, String> getter, Setter<T, String> setter) {
+											  Binder<T> binder, ValueProvider<T, String> getter,
+											  Setter<T, String> setter) {
 		TextArea textArea = new TextArea(localize(labelToLocalize));
 		if (maxLength != null)
 			textArea.setMaxLength(maxLength);
@@ -428,13 +446,17 @@ public class UIUtils {
 	 * Combo
 	 */
 	public static <T, I, C extends ComboValue<I>> ComboBox<C> createComboBox(String labelToLocalize, boolean required,
-			Collection<C> data, Binder<T> binder, ValueProvider<T, I> getter, Setter<T, I> setter) {
+																			 Collection<C> data, Binder<T> binder,
+																			 ValueProvider<T, I> getter,
+																			 Setter<T, I> setter) {
 		return createComboBox(labelToLocalize, required, data, binder, getter, setter, null);
 	}
 
 	public static <T, I, C extends ComboValue<I>> ComboBox<C> createComboBox(String labelToLocalize, boolean required,
-			Collection<C> data, Binder<T> binder, ValueProvider<T, I> getter, Setter<T, I> setter,
-			Validator<C> additionalValidator) {
+																			 Collection<C> data, Binder<T> binder,
+																			 ValueProvider<T, I> getter,
+																			 Setter<T, I> setter,
+																			 Validator<C> additionalValidator) {
 		Map<I, C> comboValuesMap = new HashMap<>();
 		for (C to : data)
 			comboValuesMap.put(to.getId(), to);
